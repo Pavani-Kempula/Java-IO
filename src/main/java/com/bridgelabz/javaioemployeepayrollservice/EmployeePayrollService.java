@@ -11,6 +11,8 @@ import java.util.Scanner;
  ******************************************************************************/
 
 public class EmployeePayrollService {
+    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
+
     //To Store employee data.
     private List<EmployeePayrollData> employeePayrollDataList;
 
@@ -43,8 +45,13 @@ public class EmployeePayrollService {
      *
      * Description : Writing employee data back to console.
      */
-    private void writeEmployeePayrollData() {
-        System.out.println("\nWriting Employee Payroll To Console:\n" + employeePayrollDataList);
+    public void writeEmployeePayrollData(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO)) {
+            System.out.println("\nWriting Employee Payroll To Console:\n" + employeePayrollDataList);
+        }
+        else if (ioService.equals(IOService.FILE_IO)) {
+            new EmployeePayrollFileIOService().writeData(employeePayrollDataList);
+        }
     }
 
     public static void main(String[] args) {
@@ -52,6 +59,6 @@ public class EmployeePayrollService {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollDataList);
         Scanner consoleInputReader = new Scanner(System.in);
         employeePayrollService.readEmployeePayrollData(consoleInputReader);
-        employeePayrollService.writeEmployeePayrollData();
+        employeePayrollService.writeEmployeePayrollData(IOService.FILE_IO);
     }
 }

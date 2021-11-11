@@ -10,6 +10,7 @@ public class Java8WatchServiceExample {
     private static final WatchEvent.Kind<?>[] ENTRY_CREATE = null;
     private static final WatchEvent.Modifier ENTRY_DELETE = null;
     private static final WatchEvent.Modifier ENTRY_MODIFY = null;
+    private String Kind;
     private final WatchService watcher;
     private final Map<WatchKey, Path> dirWatchers;
 
@@ -35,9 +36,9 @@ public class Java8WatchServiceExample {
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-            registerDirWatchers(dir);
-            return FileVisitResult.CONTINUE;
-        }
+                registerDirWatchers(dir);
+                return FileVisitResult.CONTINUE;
+            }
         });
     }
 
@@ -62,7 +63,7 @@ public class Java8WatchServiceExample {
                 System.out.format("%s: %s\n", event.kind().name(), child); //print out event
 
                 //if directory is created, then register it and its sub-directories
-                if (Kind == ENTRY_CREATE) {
+                if (Kind.equals(ENTRY_CREATE)) {
                     try {
                         if (Files.isDirectory(child)) scanAndRegisterDirectories(child);
                     }
