@@ -44,6 +44,7 @@ public class EmployeePayrollService {
      * Name : writeEmployeePayrollData
      *
      * Description : Writing employee data back to console.
+     *
      * @param ioService
      */
     public void writeEmployeePayrollData(IOService ioService) {
@@ -78,6 +79,14 @@ public class EmployeePayrollService {
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO)) {
             return new EmployeePayrollFileIOService().countEntries();
+        }
+        return 0;
+    }
+
+    public long readEmployeePayrollData(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO)) {
+            this.employeePayrollDataList = new EmployeePayrollFileIOService().readData();
+            return employeePayrollDataList.size();
         }
         return 0;
     }
