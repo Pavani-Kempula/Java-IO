@@ -44,6 +44,7 @@ public class EmployeePayrollService {
      * Name : writeEmployeePayrollData
      *
      * Description : Writing employee data back to console.
+     * @param ioService
      */
     public void writeEmployeePayrollData(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO)) {
@@ -52,6 +53,33 @@ public class EmployeePayrollService {
         else if (ioService.equals(IOService.FILE_IO)) {
             new EmployeePayrollFileIOService().writeData(employeePayrollDataList);
         }
+    }
+
+    /**
+     * Name : printData
+     *
+     * Description : Printing employee data to console.
+     *
+     * @param ioService
+     */
+    public void printData(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO)) {
+            new EmployeePayrollFileIOService().printData();
+        }
+    }
+
+    /**
+     * Name : countEntries
+     *
+     * Description : Counting the total number of records present in file.
+     *
+     * @param ioService
+     */
+    public long countEntries(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO)) {
+            return new EmployeePayrollFileIOService().countEntries();
+        }
+        return 0;
     }
 
     public static void main(String[] args) {
